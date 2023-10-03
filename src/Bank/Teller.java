@@ -2,7 +2,7 @@ package Bank;
 
 public class Teller extends Person{
     String id;
-    Teller(){
+    Teller() {
         System.out.println("Tidak Ada Data Teller");
     }
     Teller(String id, String name, String username, String password){
@@ -14,3 +14,9 @@ public class Teller extends Person{
 
 
 }
+
+
+
+
+
+

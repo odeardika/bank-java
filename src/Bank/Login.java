@@ -33,7 +33,7 @@ public class Login {
                             String name = resultSet.getString("name");
                             JOptionPane.showMessageDialog(null, "Berhasi Login");
                                 frame.setVisible(false);
-                                Teller tel = new Teller(id, name, username, password);
+                                Teller tel = new Teller(id, name, user, pass);
                                 DashBoard.open(tel);
                         }else {
                             JOptionPane.showMessageDialog(null, "gagal");

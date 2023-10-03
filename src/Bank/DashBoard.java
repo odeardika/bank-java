@@ -32,12 +32,7 @@ public class DashBoard {
 
             }
         });
-
-
-
     }
-
-
     public static void open(Teller tel){
         JFrame frame = new JFrame("BANK");
         frame.setContentPane(new DashBoard(tel).DashBoard);

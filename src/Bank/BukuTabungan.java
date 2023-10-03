@@ -1,20 +1,32 @@
 package Bank;
 
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.design.JasperDesign;
+import net.sf.jasperreports.engine.xml.JRXmlLoader;
+import net.sf.jasperreports.view.JasperViewer;
+
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.HashMap;
+import java.util.Map;
 
 public class BukuTabungan {
     private JPanel BukuTabungan;
     private JTextField textField1;
     private JButton cekTabunganButton;
     private JTable table1;
+    private JButton cetakButton;
     private DefaultTableModel model = new DefaultTableModel();
 
 
@@ -54,6 +66,26 @@ public class BukuTabungan {
                     resultSet.close();
                     statement.close();
                 }catch (SQLException exception) {
+                    exception.printStackTrace();
+                }
+            }
+        });
+        cetakButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JasperReport jasperReport;
+                JasperDesign jasperDesign;
+                JasperPrint jasperPrint;
+                Map<String, Object> param = new HashMap<String, Object>();
+                try {
+                    File file = new File("src/Bank/Blank_A4.jrxml");
+                    jasperDesign = JRXmlLoader.load(file);
+                    param.clear();
+                    jasperReport = JasperCompileManager.compileReport(jasperDesign);
+                    jasperPrint = JasperFillManager.fillReport(jasperReport, param,
+                            Connector.getConnection());
+                    JasperViewer.viewReport(jasperPrint, false);
+                } catch (Exception exception) {
                     exception.printStackTrace();
                 }
             }
